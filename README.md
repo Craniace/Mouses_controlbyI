@@ -1,4 +1,4 @@
- Mouse Cursor Control Using Facial Movements
+ # Mouse Cursor Control Using Facial Movements
 
 This HCI (Human-Computer Interaction) application in Python will allow you to control your mouse cursor with your Eye movements, works with just your regular webcam. Its hands-free, no wearable hardware or sensors needed.
 
@@ -22,17 +22,12 @@ This project is deeply centered around predicting the facial landmarks of a give
 
 [Dlib](dlib.net/)'s prebuilt model, which is essentially an implementation of [[4](#references)], not only does a fast face-detection but also allows us to accurately predict 68 2D facial landmarks. Very handy.  
 
-<div align="center">
-<img src="images/facial-landmarks-68.jpg" width=500 height=190/>
-</div>
 
 Using these predicted landmarks of the face, we can build appropriate features that will further allow us to detect certain actions, like using the eye-aspect-ratio (more on this below) to detect a blink or a wink, using the mouth-aspect-ratio to detect a yawn etc or maybe even a pout. In this project, these actions are programmed as triggers to control the mouse cursor. [PyAutoGUI](http://pyautogui.readthedocs.io) library was used to control the mouse cursor. 
 
 ### Eye-Aspect-Ratio (EAR)
 You will see that Eye-Aspect-Ratio [[1](#references)] is the simplest and the most elegant feature that takes good advantage of the facial landmarks. EAR helps us in detecting blinks [[3](#references)] and winks etc.  
-<div align="center">
-<img src="images/EAR-final.png" width=772 height=298/>
-</div>
+
 
 You can see that the EAR value drops whenever the eye closes. We can train a simple classifier to detect the drop. However, a normal if condition works just fine. Something like this:
 
@@ -42,9 +37,7 @@ You can see that the EAR value drops whenever the eye closes. We can train a sim
 ### Mouth-Aspect-Ratio (MAR)
 Highly inspired by the EAR feature, I tweaked the formula a little bit to get a metric that can detect open/closed mouth. Unoriginal but it works.  
 
-<div align="center">
-<img src="images/MAR-final.jpg" width=700 height=300/>
-</div>
+
 
 Similar to EAR, MAR value goes up when the mouth opens. Similar intuitions hold true for this metric as well. 
 
@@ -57,9 +50,6 @@ The facial landmarks estimator was created by using dlib's implementation of the
       Vahid Kazemi and Josephine Sullivan, CVPR 2014](https://www.semanticscholar.org/paper/One-millisecond-face-alignment-with-an-ensemble-of-Kazemi-Sullivan/1824b1ccace464ba275ccc86619feaa89018c0ad). 
 And was trained on the iBUG 300-W face landmark dataset: C. Sagonas, E. Antonakos, G, Tzimiropoulos, S. Zafeiriou, M. Pantic. 300 faces In-the-wild challenge: Database and results. [Image and Vision Computing (IMAVIS), Special Issue on Facial Landmark Localisation "In-The-Wild". 2016](https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/).
 
-<div align="center">
-<img src="images/faces.png" width=870 height=330/>
-</div>
 
 You can get the trained model file from http://dlib.net/files, click on **shape\_predictor\_68\_face\_landmarks.dat.bz2**. The model dat file has to be in the model folder.
 
